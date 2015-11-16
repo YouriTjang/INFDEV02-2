@@ -20,10 +20,10 @@ Rotterdam, Netherlands}
 \SlideSection{Introduction}
 \SlideSubSection{Lecture topics}
 \begin{slide}{
-\item Walkthrough retake exam
 \item Mechanism of abstraction
 \item The need for data structures
 \item Classes as data structures in Python
+\item Tuples and records
 }\end{slide}
 
 \SlideSection{What is abstraction?}
@@ -240,19 +240,125 @@ It is not valid Python code, but it is a blueprint specifying a recurrent set of
 
 \end{frame}
 
-\SlideSection{Assignment}
-\SlideSubSection{Assignment}
+\SlideSection{Technical details}
+\SlideSubSection{How is this done in Python?}
 \begin{slide}{
-\item Think of the project,
-\item identify (at least) 3 data structures and
-\item define the blueprints.
+\item Python offers a facility called \texttt{class}
+\item It is used to capture a data structure.
+}\end{slide}
+
+\begin{frame}[fragile]{Syntax of Python classes}
+\begin{lstlisting}
+class <<Name>>:
+  def __init__(self, <<v1>>, <<v2>>, ..., <<vN>):
+    self.<<A1>> = <<v1>>
+    self.<<A2>> = <<v2>>
+    ...
+    self.<<AN>> = <<vN>>
+\end{lstlisting}
+
+The class has thus: \texttt{name}, \texttt{initial values} $v_1$ through $v_N$, and \texttt{attributes} $A_1$ through $A_N$ initialized with \texttt{\_\_init\_\_}.
+
+\texttt{self} is a reference to the \texttt{concrete instance} that is being set up.
+\end{frame}
+
+\begin{frame}[fragile]{Usage of Python classes}
+\begin{lstlisting}
+x = <<Name>>(<<v1>>, <<v2>>, ..., <<vN>)
+\end{lstlisting}
+
+Sets up a \texttt{concrete instance} of \texttt{<<Name>>} with some \texttt{initial values}.
+\end{frame}
+
+\begin{frame}[fragile]{Usage of Python classes}
+\begin{lstlisting}
+print(x.<<A2>>)
+\end{lstlisting}
+
+Prints the value of the second \texttt{attribute} of the \texttt{concrete instance} called \texttt{x} of class \texttt{<<Name>>}.
+\end{frame}
+
+\begin{frame}[fragile]{Usage of Python classes}
+\begin{lstlisting}
+x.<<A3>> = y
+\end{lstlisting}
+
+Assigns \texttt{y} as the new value of the third \texttt{attribute} of the \texttt{concrete instance} called \texttt{x} of class \texttt{<<Name>>}.
+\end{frame}
+
+\SlideSubSection{Semantics of Python classes}
+\begin{slide}{
+\item The semantics of Python classes require a more sophisticated model of memory
+\item Memory is now divided in two
+\begin{description}
+\item[\textbf{STACK}] The state that we used so far, for primitive values (\texttt{int}, \texttt{string}, etc.)
+\item[\textbf{HEAP}] A storage for complex values such as classes
+\end{description}
+}\end{slide}
+
+\begin{slide}{
+\item An instruction \texttt{I} will now transform the initial heap and stack \texttt{H,S} into the resulting (possibly changed) heap and stack \texttt{H',S'} \footnote{in addition to the program counter \texttt{PC}, which always behaves in the same way}
+
+$$<PC,H,S> \overset{I}{\rightarrow} <PC',H',S'>$$
+}\end{slide}
+
+\SlideSubSection{Semantics of creation}
+\begin{slide}{
+\item Consider creation of a Python class: \texttt{x = <<Name>>(...)} (shortened to \texttt{xName})
+\item This affects both memories
+\begin{description}
+\item[\textbf{HEAP}] We create and initialize a new instance of class \texttt{<<Name>>}
+\item[\textbf{STACK}] We add an entry \texttt{x} to the stack, which references to the newly created instance
+\end{description}
+}\end{slide}
+
+\begin{slide}{
+\item Given that:
+\item $|H|$ is the size of the heap at creation, which we call the \textbf{address} of the new instance
+\item $\llangle Name \rrangle(...)$ is a new instance of the class, which contains a map from the attribute names to their values
+
+\fontsize{8pt}{7.2}\selectfont
+$$<PC,H,S> \overset{xName}{\rightarrow} <PC+1,H[|H| \mapsto \llangle Name \rrangle(\dots)],S[x \mapsto |H|]>$$
+
+\item \texttt{x} is, unsurprisingly, called a \textbf{reference}
+\begin{itemize}
+\item it does not contain the value of the class instance
+\item it merely tells us where to find it
+\end{itemize}
+}\end{slide}
+
+\SlideSubSection{Attribute lookup}
+\begin{slide}{
+\item Consider reading an attribute (also called lookup)
+\item \texttt{x.<<A>>} (shortened to \texttt{xA})
+\item Where is it in memory?
+\begin{description}
+\item[\textbf{STACK}] We find an entry \texttt{x}, which tells us where the corresponding instance of the class is found
+\item[\textbf{HEAP}] We find the actual attribute in the map of attributes
+\end{description}
+
+$$<PC,H,S> \overset{xA}{\rightarrow} <PC+1,H[S[x]][\llangle A \rrangle],S>$$
 }\end{slide}
 
 
 
+\SlideSubSection{Attribute update}
+\begin{slide}{
+\item Consider assigning to an attribute
+\item \texttt{x.<<A>> = v} (shortened to \texttt{xAv})
+\item Where is it in memory?
+\begin{description}
+\item[\textbf{STACK}] We find an entry \texttt{x}, which tells us where the corresponding instance of the class is found
+\item[\textbf{HEAP}] We reassign the actual attribute in the map of attributes
+\end{description}
+
+$$<PC,H,S> \overset{xAv}{\rightarrow} <PC+1,H[S[x] \mapsto H[S[x]][A \mapsto v]]$$
+% TODO add "how to read it"
+}\end{slide}
+
 \SlideSubSection{Examples}
 \begin{slide}{
-\item We are now ready to implement our player data type
+\item We can now implement our player data type
 \item We will use a Python class to do so
 \item We will then create concrete instances of it, and use them
 }\end{slide}
@@ -300,67 +406,175 @@ playerThree = Player("P3", 10.0, 0.0)
 \end{lstlisting}
 \end{frame}
 
-\SlideSection{Assignment}
-\SlideSubSection{Write your classes in Python}
-\begin{slide}{
-\item Write the data structures you defined before in Python classes
-\item Test them out.
-}\end{slide}
 
 
-\SlideSection{Technical details}
-\SlideSubSection{How is this done in Python?}
-\begin{slide}{
-\item Python offers a facility called \texttt{class}
-\item It is used to capture a data structure.
-}\end{slide}
+\begin{frame}[fragile]{Creating concrete instances}
+\begin{memorytable}
+{|c|}
+{PC}
+{1}
+{|c|}
+{}
+{}
+\end{memorytable}
 
-\begin{frame}[fragile]{Syntax of Python classes}
+\ \\
+
 \begin{lstlisting}
-class <<Name>>:
-  def __init__(self, <<v1>>, <<v2>>, ..., <<vN>):
-    self.<<A1>> = <<v1>>
-    self.<<A2>> = <<v2>>
-    ...
-    self.<<AN>> = <<vN>>
+playerOne   = Player("P1", 0.0, 0.0)
+playerTwo   = Player("P2", 5.0, 0.0)
+playerThree = Player("P3", 10.0, 0.0)
 \end{lstlisting}
 
-The class has thus: \texttt{name}, \texttt{initial values} $v_1$ through $v_N$, and \texttt{attributes} $A_1$ through $A_N$ initialized with \texttt{\_\_init\_\_}.
+\pause
 
-\texttt{self} is a reference to the \texttt{concrete instance} that is being set up.
+\begin{memorytable}
+{|c|c|}
+{PC & playerOne}
+{2 & ref(0)}
+{|c|}
+{0}
+{[N $\mapsto$ "P1"; PX $\mapsto$ 0.0; PY $\mapsto$ 0.0]}
+\end{memorytable}
 \end{frame}
 
-\begin{frame}[fragile]{Usage of Python classes}
+\begin{frame}[fragile]{Creating concrete instances}
+\begin{memorytable}
+{|c|c|}
+{PC & playerOne}
+{2 & ref(0)}
+{|c|}
+{0}
+{[N $\mapsto$ "P1"; PX $\mapsto$ 0.0; PY $\mapsto$ 0.0]}
+\end{memorytable}
+
+\ \\
+
 \begin{lstlisting}
-x = <<Name>>(<<v1>>, <<v2>>, ..., <<vN>)
+playerOne   = Player("P1", 0.0, 0.0)
+playerTwo   = Player("P2", 5.0, 0.0)
+playerThree = Player("P3", 10.0, 0.0)
 \end{lstlisting}
 
-Sets up a \texttt{concrete instance} of \texttt{<<Name>>} with some \texttt{initial values}.
+\pause
+
+\begin{memorytable}
+{|c|c|c|}
+{PC & playerOne & playerTwo}
+{3 & ref(0) & ref(1)}
+{|c|c|}
+{0 & 1}
+{... & [N $\mapsto$ "P2"; PX $\mapsto$ 5.0; PY $\mapsto$ 0.0]}
+\end{memorytable}
 \end{frame}
 
-\begin{frame}[fragile]{Usage of Python classes}
+\begin{frame}[fragile]{Creating concrete instances}
+\begin{memorytable}
+{|c|c|c|}
+{PC & playerOne & playerTwo}
+{3 & ref(0) & ref(1)}
+{|c|c|}
+{0 & 1}
+{... & [N $\mapsto$ "P2"; PX $\mapsto$ 5.0; PY $\mapsto$ 0.0]}
+\end{memorytable}
+
+\ \\
+
 \begin{lstlisting}
-print(x.<<A2>>)
+playerOne   = Player("P1", 0.0, 0.0)
+playerTwo   = Player("P2", 5.0, 0.0)
+playerThree = Player("P3", 10.0, 0.0)
 \end{lstlisting}
 
-Prints the value of the second \texttt{attribute} of the \texttt{concrete instance} called \texttt{x} of class \texttt{<<Name>>}.
+\pause
+
+\begin{memorytable}
+{|c|c|c|c|}
+{PC & playerOne & playerTwo & playerThree}
+{4 & ref(0) & ref(1) & ref(2)}
+{|c|c|c|}
+{0 & 1 & 2}
+{... & ... & [N $\mapsto$ "P3"; PX $\mapsto$ 10.0; PY $\mapsto$ 0.0]}
+\end{memorytable}
 \end{frame}
 
-\begin{frame}[fragile]{Usage of Python classes}
-\begin{lstlisting}
-x.<<A3>> = y
-\end{lstlisting}
+\begin{frame}[fragile]{Using the concrete instances}
+Suppose we wish to access \texttt{playerOne.PositionX}
 
-Assigns \texttt{y} as the new value of the third \texttt{attribute} of the \texttt{concrete instance} called \texttt{x} of class \texttt{<<Name>>}.
+\begin{memorytable}
+{|c|c|c|c|}
+{PC & playerOne & playerTwo & playerThree}
+{4 & ref(0) & ref(1) & ref(2)}
+{|c|c|c|}
+{0 & 1 & 2}
+{[N $\mapsto$ "P1"; PX $\mapsto$ 0.0; PY $\mapsto$ 0.0] & ... & ...}
+\end{memorytable}
+
+\pause
+
+First we look in the stack:
+
+\begin{memorytable}
+{|c|c|c|c|}
+{PC & playerOne & playerTwo & playerThree}
+{5 & \red{ref(0)} & ref(1) & ref(2)}
+{|c|c|c|}
+{0 & 1 & 2}
+{[N $\mapsto$ "P1"; PX $\mapsto$ 0.0; PY $\mapsto$ 0.0] & ... & ...}
+\end{memorytable}
 \end{frame}
 
+\begin{frame}[fragile]{Using the concrete instances}
+Suppose we wish to access \texttt{playerOne.PositionX}
 
+\begin{memorytable}
+{|c|c|c|c|}
+{PC & playerOne & playerTwo & playerThree}
+{5 & \red{ref(0)} & ref(1) & ref(2)}
+{|c|c|c|}
+{0 & 1 & 2}
+{[N $\mapsto$ "P1"; PX $\mapsto$ 0.0; PY $\mapsto$ 0.0] & ... & ...}
+\end{memorytable}
 
+\pause
 
+Then we look in the heap:
 
+\begin{memorytable}
+{|c|c|c|c|}
+{PC & playerOne & playerTwo & playerThree}
+{5 & ref(0) & ref(1) & ref(2)}
+{|c|c|c|}
+{0 & 1 & 2}
+{\red{[N $\mapsto$ "P1"; PX $\mapsto$ 0.0; PY $\mapsto$ 0.0]} & ... & ...}
+\end{memorytable}
+\end{frame}
 
+\begin{frame}[fragile]{Using the concrete instances}
+Suppose we wish to access \texttt{playerOne.PositionX}
 
+\begin{memorytable}
+{|c|c|c|c|}
+{PC & playerOne & playerTwo & playerThree}
+{5 & ref(0) & ref(1) & ref(2)}
+{|c|c|c|}
+{0 & 1 & 2}
+{\red{[N $\mapsto$ "P1"; PX $\mapsto$ 0.0; PY $\mapsto$ 0.0]} & ... & ...}
+\end{memorytable}
 
+\pause
+
+Finally we search the right attribute (\texttt{PositionX}):
+
+\begin{memorytable}
+{|c|c|c|c|}
+{PC & playerOne & playerTwo & playerThree}
+{5 & ref(0) & ref(1) & ref(2)}
+{|c|c|c|}
+{0 & 1 & 2}
+{[N $\mapsto$ "P1"; \red{PX $\mapsto$ 0.0}; PY $\mapsto$ 0.0] & ... & ...}
+\end{memorytable}
+\end{frame}
 
 %%% Aliasing of references
 
@@ -377,7 +591,7 @@ Assigns \texttt{y} as the new value of the third \texttt{attribute} of the \text
 \SlideSubSection{Refined data structures}
 \begin{frame}[fragile]{Refined data structures}
 \begin{lstlisting}
-class position:
+class Vector2:
   def __init__(self, x, y):
     self.X = x
     self.Y = y
@@ -385,7 +599,7 @@ class position:
 class PlayerRefined:
   def __init__(self, name, posX, posY):
     self.Name = name
-    self.position = position(posX,posY)
+    self.Position = Vector2(posX,posY)
 \end{lstlisting}
 \end{frame}
 
@@ -403,22 +617,39 @@ class PlayerRefined:
 \item \texttt{playerOne.Position.Y}
 }\end{slide}
 
-
-\SlideSection{Assignment}
-\SlideSubSection{Build, in class, a series of data structures}
 \begin{slide}{
-\item Tyre
-\item Wheel
-\item Engine
-\item Seat
-\item Light
-\item Person (driver and passenger)
-\item Car
+\item What does memory look like now with a player that contains a vector?
+\item Stack is similar to previous instance
+\item Heap contains a reference to a vector!
 }\end{slide}
 
+\begin{frame}[fragile]{Creating concrete instances}
+\begin{memorytable}
+{|c|}
+{PC}
+{1}
+{|c|}
+{}
+{}
+\end{memorytable}
 
+\ \\
 
+\begin{lstlisting}
+playerOne   = PlayerRefined("P1", 0.0, 0.0)
+\end{lstlisting}
 
+\pause
+
+\begin{memorytable}
+{|c|c|}
+{PC & playerOne}
+{2 & ref(0)}
+{|c|c|}
+{0 & 1}
+{[N $\mapsto$ "P1"; P $\mapsto$ ref(1);] & [X $\mapsto$ 0.0; Y $\mapsto$ 0.0]}
+\end{memorytable}
+\end{frame}
 
 \SlideSubSection{What characterizes a good design of data structures?}
 \begin{slide}{
@@ -451,8 +682,6 @@ class PlayerRefined:
 \item The rest of the program integrates a well-designed data structure with minimal modification
 }\end{slide}
 
-
-
 \SlideSubSection{How do we verify all this?!?}
 \begin{slide}{
 \item Takes experience and good taste
@@ -462,8 +691,17 @@ class PlayerRefined:
 \item ...unless you reason first and write code after
 }\end{slide}
 
-
-
+\SlideSection{Assignment}
+\SlideSubSection{Build, in class, a series of data structures}
+\begin{slide}{
+\item Tyre
+\item Wheel
+\item Engine
+\item Seat
+\item Light
+\item Person (driver and passenger)
+\item Car
+}\end{slide}
 
 \SlideSection{Conclusion}
 \SlideSubSection{Lecture topics}
