@@ -300,22 +300,18 @@ playerThree = Player("P3", 10.0, 0.0)
 \end{lstlisting}
 \end{frame}
 
-\SlideSection{Assignment}
-\SlideSubSection{Write your classes in Python}
-\begin{slide}{
-\item Write the data structures you defined before in Python classes
-\item Test them out.
-}\end{slide}
 
+\begin{frame}[fragile]{The implemented class}
+\begin{lstlisting}
+class Player:
+  def __init__(self, name, posX, posY):
+    self.Name = name
+    self.PositionX = posX
+    self.PositionY = posY
+\end{lstlisting}
 
-\SlideSection{Technical details}
-\SlideSubSection{How is this done in Python?}
-\begin{slide}{
-\item Python offers a facility called \texttt{class}
-\item It is used to capture a data structure.
-}\end{slide}
+General template:
 
-\begin{frame}[fragile]{Syntax of Python classes}
 \begin{lstlisting}
 class <<Name>>:
   def __init__(self, <<v1>>, <<v2>>, ..., <<vN>):
@@ -326,11 +322,18 @@ class <<Name>>:
 \end{lstlisting}
 
 The class has thus: \texttt{name}, \texttt{initial values} $v_1$ through $v_N$, and \texttt{attributes} $A_1$ through $A_N$ initialized with \texttt{\_\_init\_\_}.
-
 \texttt{self} is a reference to the \texttt{concrete instance} that is being set up.
 \end{frame}
 
+
 \begin{frame}[fragile]{Usage of Python classes}
+Using a class:
+\begin{lstlisting}
+playerOne   = Player("P1", 0.0, 0.0)
+\end{lstlisting}
+
+General template:
+
 \begin{lstlisting}
 x = <<Name>>(<<v1>>, <<v2>>, ..., <<vN>)
 \end{lstlisting}
@@ -338,15 +341,17 @@ x = <<Name>>(<<v1>>, <<v2>>, ..., <<vN>)
 Sets up a \texttt{concrete instance} of \texttt{<<Name>>} with some \texttt{initial values}.
 \end{frame}
 
+
 \begin{frame}[fragile]{Usage of Python classes}
+Reading:
 \begin{lstlisting}
 print(x.<<A2>>)
 \end{lstlisting}
 
 Prints the value of the second \texttt{attribute} of the \texttt{concrete instance} called \texttt{x} of class \texttt{<<Name>>}.
-\end{frame}
 
-\begin{frame}[fragile]{Usage of Python classes}
+//
+Writing:
 \begin{lstlisting}
 x.<<A3>> = y
 \end{lstlisting}
@@ -355,6 +360,15 @@ Assigns \texttt{y} as the new value of the third \texttt{attribute} of the \text
 \end{frame}
 
 
+
+
+
+\SlideSection{Assignment}
+\SlideSubSection{Write your classes in Python}
+\begin{slide}{
+\item Write the data structures you defined before in Python classes
+\item Test them out.
+}\end{slide}
 
 
 
