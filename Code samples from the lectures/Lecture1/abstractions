@@ -1,0 +1,10 @@
+Abstraction stukje:
+    grootte - integer
+    icoontje - string
+    locatie - integer
+
+Abstraction speelkaart:
+    type - string
+    richting - boolean
+    kleur - string
+    worp - int
