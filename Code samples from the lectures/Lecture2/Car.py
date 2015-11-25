@@ -5,8 +5,8 @@ class Tyre:
         self.diameter = diameter
         self.width = width
 
-        # def __str__(self):
-        #     return "{} - {} - {}".format(self.brand, self.diameter, self.width)
+    def __str__(self):
+        return "{} - {} - {}".format(self.brand, self.diameter, self.width)
 
 
 class Wheel:
@@ -17,8 +17,8 @@ class Wheel:
         self.material = material
         self.tyre = tyre
 
-    def __str__(self):
-        return "wheel with tyre: {} ".format(self.tyre)
+    # def __str__(self):
+    #     return "wheel with tyre: {} ".format(self.tyre)
 
 class Seat:
     def __init__(self, position, fabric):
@@ -96,4 +96,4 @@ back_right_wheel  = Wheel("Lidl", 21, 15,"Aluminum", tyre)
 car = Car("Seat", "Leon", "Black", engine, left_head_light , right_head_light, left_break_light, right_break_light, front_left_wheel, front_right_wheel, back_left_wheel, back_right_wheel)
 
 
-print type(car)
+print car

@@ -9,13 +9,10 @@ class SimpleCar:
 
 
 import csv
-with open('csv_data.csv', 'rb') as csvfile:
+with open('car.csv', 'rb') as csvfile:
     carreader = csv.reader(csvfile, delimiter=',')
     cars = []
     for row in carreader:
         cars.append(SimpleCar(int(row[0]), row[1], row[2]))
 
 
-for car in cars:
-    if car.year >= 2016:
-        print car

@@ -1,4 +1,3 @@
-
 class Student:
     def __init__(self, name, grade):
         self.name = name
@@ -8,42 +7,44 @@ class Student:
         return "{} - {}".format(self.name, self.grade)
 
 students = []
-students.append(Student("Nienke van de Wal", 5))
-students.append(Student("Owen Blonk", 6))
-students.append(Student("Aron Knoers", 1))
-students.append(Student("Noud Vermeulen", 10))
-students.append(Student("Lieke van Breukelveen-Jonkman", 8))
-students.append(Student("Benjamin Pratt", 2))
-students.append(Student("Gerrit Erhout-van Dokkum", 7))
-students.append(Student("Merijn der Kijnder", 9))
-students.append(Student("Iris Govarts", 1))
-students.append(Student("Mick de Heer", 10))
-students.append(Student("Mees Willemsen", 2))
-students.append(Student("Rens Genefaas", 4))
-students.append(Student("Mirte Luster", 5))
-students.append(Student("Jamie Mercks-Goedhart", 2))
-students.append(Student("Tyler Bertho-Smits", 6))
-students.append(Student("Danique Adriaense-van der Steen", 4))
-students.append(Student("Fiene Heijmans", 2))
-students.append(Student("Elize van Mook-Haneberg", 1))
-students.append(Student("Noud Rackham", 2))
-students.append(Student("Yasmin van Beaumont", 8))
-students.append(Student("Ryan Kamp", 5))
-students.append(Student("Jay van den Berg", 7))
-students.append(Student("Selena Scheffers", 5))
-students.append(Student("Stef van Laar", 4))
-students.append(Student("Jay Elsenaar", 4))
-students.append(Student("Yfke Lelijveld", 7))
 
-sum = 0
-for student in students:
-    sum += student.grade
-print sum / len(students)
+students.append(Student("Maarten van Geest-Wolters", 7))
+students.append(Student("Colin Westerbeek", 7))
+students.append(Student("Ashley Meyer", 5))
+students.append(Student("Jayson Mansvelt", 1))
+students.append(Student("Milan van Santen", 2))
+students.append(Student("Jonathan David", 9))
+students.append(Student("Mason de Wit", 2))
+students.append(Student("Luc Sarneel", 10))
+students.append(Student("Floris van der Leek", 9))
+students.append(Student("Faas de Bruyn", 8))
+students.append(Student("Hailey Hermans", 6))
+students.append(Student("Jesse Otte", 4))
+students.append(Student("Annemijn Rademaker", 10))
+students.append(Student("Maurits van Eck-van Noordeloos", 4))
+students.append(Student("Matthijs Kof", 9))
+students.append(Student("Annabel Kallen-Gemen", 6))
+students.append(Student("Vincent Verkade", 3))
+students.append(Student("Emma van Luin-van Dongen", 9))
+students.append(Student("Jens Koster-de Gruijter", 1))
+students.append(Student("Nout Woudenberg-Uit de Willigen", 3))
+students.append(Student("Isabella Gemen", 8))
+students.append(Student("Selina van der Veiver-Langevoort", 3))
+students.append(Student("Ninthe Horrocks-Fredriks", 1))
+students.append(Student("Dani van der Heyden", 10))
+students.append(Student("Naomi Middelkoop", 2))
+students.append(Student("Bram Moet", 6))
+students.append(Student("Beau van Hemert", 9))
+students.append(Student("Maya Room", 8))
+students.append(Student("Elena Belpere", 1))
+students.append(Student("Senna Jorlink", 10))
+students.append(Student("Duuk Scheer", 1))
+students.append(Student("Brian Volcke", 6))
+students.append(Student("Zow Hak", 3))
+students.append(Student("Dex van der Meer", 10))
+students.append(Student("Josephine Jacquot", 4))
+students.append(Student("Anne Overdijk", 8))
 
-print len(students)
 
-for i in range(9):
-    print i
 
-for i in [0, 1, 2, 3, 4, 5, 6, 7, 8]:
-    print i
+
