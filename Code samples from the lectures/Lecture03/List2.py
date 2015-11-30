@@ -14,19 +14,14 @@ class Node:
     def __str__(self):
         return str(self.Value) + "->" + str(self.Tail)
 
+lijst = Empty()
+for i in range(0, 5):
+    element = 5-i
+    lijst = Node(element, lijst)
 
-def vul_loop():
-    lijst = Empty()
-    for i in range(0, 5):
-        element = 5-i
-        lijst = Node(element, lijst)
-    return lijst
-
-def iterate():
-    lijst = vul_loop()
+def print_lijst(lijst):
     x = lijst
     while not x.IsEmpty:
         print x.Value
         x = x.Tail
 
-iterate()

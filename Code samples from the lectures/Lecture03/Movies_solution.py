@@ -38,6 +38,7 @@ with open('movies.csv', 'rb') as csvfile:
         movies.append(Movie(int(row[0]), row[1]))
 
 print "reading ratings.csv"
+
 with open('ratings.csv', 'rb') as csvfile:
     rating_reader = csv.reader(csvfile, delimiter=',')
     rating_reader.next() #this skips the header

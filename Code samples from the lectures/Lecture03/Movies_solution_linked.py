@@ -83,13 +83,6 @@ add_ratings_to_movies(movies)
 print (time.clock() - t00)/60.0, "minutes to summing ratings"
 t00 = time.clock()
 
-
-# for movie in sorted(movies, key=lambda m : calc_rating(m.rating_sum, m.rating_count) ):
-#     print movie
-
-# for movie in sorted(movies, key=lambda m : m.rating_count ):
-#     print movie + " -- " + movie.rating_count
-
 movies = movies_start
 while not movies.isEmpty:
     print movies.value
