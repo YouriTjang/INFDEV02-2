@@ -3,16 +3,13 @@ class Empty:
         self.IsEmpty = True
 
 
-Empty = Empty()
-
-
 class Node:
     def __init__(self, x, xs):
         self.IsEmpty = False
         self.Value = x
         self.Tail = xs
 
-
+Empty = Empty()
 
 def range(cnt):
     for i in range(0, cnt):
