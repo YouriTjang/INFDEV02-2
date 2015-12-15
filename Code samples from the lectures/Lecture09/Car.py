@@ -24,12 +24,15 @@ class Vector2:
     def __str__(self):
         return "(" + str(self.X) + "," + str(self.Y) + ")"
 
+    @staticmethod
     def Zero():
         return Vector2(0.0, 0.0)
 
+    @staticmethod
     def UnitX():
         return Vector2(1.0, 0.0)
 
+    @staticmethod
     def UnitY():
         return Vector2(0.0, 1.0)
 

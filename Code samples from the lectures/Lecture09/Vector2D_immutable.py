@@ -9,24 +9,16 @@ class Vector2:
         return math.sqrt(self.X * self.X + self.Y * self.Y)
 
     def __neg__(self):
-        self.X = -self.X
-        self.Y = -self.Y
-        return self
+        return Vector2(-self.X, -self.Y)
 
     def __add__(self, other):
-        self.X += other.X
-        self.Y += other.Y
-        return self
+        return Vector2(self.X + other.X, self.Y + other.Y)
 
     def __sub__(self, other):
-        self += (-other)
-        return self
+        return self + (-other);
 
     def __mul__(self, k):
-        self.X *= k
-        self.Y *= k
-        return self
-
+        return Vector2(self.X * k, self.Y * k)
 
     def __str__(self):
         return "(" + str(self.X) + "," + str(self.Y) + ")"
